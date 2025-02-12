@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "bdc8937d-fa42-4a7f-87a7-fda32a4a9a12",
+		"name": "track",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38761426"
+	},
+	"item": [
+		{
+			"name": "getallexpenses with query",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWIyMWIwMTQ4NjkzMzczMmQ3YjA3NyIsImlhdCI6MTczOTI3MDgzMywiZXhwIjoxNzM5MzU3MjMzfQ.zvtnMP8hdmX_zg3xzOQlpzkz99EByq3AvhZNDnCUlL4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/expenses?startDate=02/12/2025&endDate=02/12/2025",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"expenses"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "02/12/2025"
+						},
+						{
+							"key": "endDate",
+							"value": "02/12/2025"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addExpense",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YWIyMWIwMTQ4NjkzMzczMmQ3YjA3NyIsImlhdCI6MTczOTI3MDgzMywiZXhwIjoxNzM5MzU3MjMzfQ.zvtnMP8hdmX_zg3xzOQlpzkz99EByq3AvhZNDnCUlL4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Stay in delhiiii\",\n    \"amount\": 4000,\n    \"category\": \"travel\",\n    \"subCategory\": \"hotel\",\n    \"checkInDate\": \"1/12\",\n    \"checkOutDate\": \"2/23\",\n    \"hotelName\": \"Infinity\",\n    \"rooms\": 1,\n    \"costPerDay\": 1300\n    \n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/expenses/addExpense",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"expenses",
+						"addExpense"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
