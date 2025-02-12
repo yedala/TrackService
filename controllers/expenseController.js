@@ -21,4 +21,17 @@ const createExpense = asyncHandler(async (req, res) => {
   }
 });
 
-export { createExpense };
+const getAllExpenses = asyncHandler(async (req, res) => {
+  let { userId } = req.body;
+  try {
+    const expenses = await Expense.find({ userId });
+    res.status(200).json({
+      message: "Expenses fetched successfully",
+      expenses: expenses,
+    });
+  } catch (e) {
+    res.status(400);
+    throw new Error("Error occured");
+  }
+});
+export { createExpense, getAllExpenses };

@@ -13,7 +13,8 @@ const authGaurd = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
       //   req.user = await findById(decoded.id).select("-password");
-      req.userId = decoded.id;
+      req.body.userId = decoded.id;
+      console.log;
       // console.log(decoded);
       next();
     } catch (err) {
