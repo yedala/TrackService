@@ -16,9 +16,23 @@ const expenseModal = Schema(
       type: Boolean,
       default: false,
     },
+    amount: {
+      type: Number,
+      default: 0,
+      required: true,
+    },
+    ratio: {
+      type: Number,
+      default: 1,
+    },
     likedUserIds: [
       {
-        type: String,
+        userId: {
+          type: String,
+        },
+        ratio: {
+          type: Number,
+        },
       },
     ],
     category: {
@@ -26,10 +40,62 @@ const expenseModal = Schema(
       required: true,
       default: "Others",
     },
-    amount: {
-      type: Number,
-      default: 0,
+    subCategory: {
+      type: String,
       required: true,
+      default: "Others",
+    },
+    flightDetails: {
+      travelDate: {
+        type: Date,
+      },
+      from: {
+        type: String,
+      },
+      destination: {
+        type: String,
+      },
+      airlineName: {
+        type: String,
+        default: "Indigo",
+      },
+      classTravelled: {
+        // need a enum
+        type: String,
+        default: "Economy",
+      },
+    },
+    hotelDetails: {
+      checkInDate: {
+        type: Date,
+      },
+      checkOutDate: {
+        type: Date,
+      },
+      hotelName: {
+        type: String,
+      },
+      numberOfRooms: {
+        type: Number,
+        default: 1,
+      },
+      costPerDay: {
+        type: Number,
+      },
+    },
+    vehicleDetails: {
+      startDate: {
+        type: Date,
+      },
+      endDate: {
+        type: Date,
+      },
+      mode: {
+        type: String,
+      },
+      costPerDay: {
+        type: Number,
+      },
     },
   },
   {

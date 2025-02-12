@@ -1,18 +1,14 @@
+import ExpenseFactory from "../factories/expense/expenseFactory.js";
 import Expense from "../models/expenseModel.js";
 import asyncHandler from "express-async-handler";
 
 const createExpense = asyncHandler(async (req, res) => {
-  let { userId, title, isGroupExpense, likedUserIds, category, amount } =
-    req.body;
-
-  const expense = await Expense.create({
-    userId,
-    title,
-    isGroupExpense,
-    likedUserIds,
+  let { category, subCategory, ...expenseData } = req.body;
+  const expense = ExpenseFactory.createExpense(
     category,
-    amount,
-  });
+    subCategory,
+    expenseData
+  );
   if (expense) {
     await expense.save();
     res.status(201).json({
