@@ -1,9 +1,19 @@
+import express from "express";
 import ExpenseFactory from "../factories/expense/expenseFactory.js";
 import Expense from "../models/expenseModel.js";
 import asyncHandler from "express-async-handler";
+import CurrencyConversionService from "../services/CurrencyConverterService.js";
 
 const createExpense = asyncHandler(async (req, res) => {
-  let { category, subCategory, ...expenseData } = req.body;
+  let {
+    category,
+    subCategory,
+    amount,
+    currency = "INR",
+    ...expenseData
+  } = req.body;
+  let currencyService = new CurrencyConversionService();
+  expenseData.amount = await currencyService.convert(amount, currency, "INR");
   const expense = ExpenseFactory.createExpense(
     category,
     subCategory,
