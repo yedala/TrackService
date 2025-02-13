@@ -42,4 +42,44 @@ const filterExpenses = asyncHandler(async (req, res) => {
     throw new Error("Error occured");
   }
 });
-export { createExpense, filterExpenses };
+
+const getExpense = asyncHandler(async (req, res) => {
+  const { userId } = req.body;
+  const query = req.query;
+  const filter = { userId: userId };
+  if (query?.startDate || query?.endDate) filter.createdAt = {};
+  if (query?.startDate) filter.createdAt.$gte = new Date(query.startDate);
+  if (query?.endDate)
+    filter.createdAt.$lte = new Date(query.endDate).setHours(23, 59, 59, 999);
+
+  try {
+    const result = await Expense.aggregate([
+      { $match: filter },
+      {
+        $facet: {
+          categoryTotals: [
+            { $group: { _id: "$category", totalAmount: { $sum: "$amount" } } },
+          ],
+          overallTotal: [
+            { $group: { _id: null, totalAmount: { $sum: "$amount" } } },
+          ],
+        },
+      },
+      {
+        $project: {
+          categoryTotals: 1,
+          overallTotal: { $arrayElemAt: ["$overallTotal.totalAmount", 0] },
+        },
+      },
+    ]);
+
+    res.status(200).json({
+      message: "Total fetched successfully",
+      result: result[0],
+    });
+  } catch {
+    res.status(400);
+    throw new Error("Error occured");
+  }
+});
+export { createExpense, filterExpenses, getExpense };
